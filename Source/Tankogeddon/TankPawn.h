@@ -19,6 +19,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void MoveForward(float Value);
+	void MoveRight(float Value); //
+
+	void Move(float DeltaTime); //
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -43,5 +46,6 @@ protected:
 	float RotationSpeed = 100.0f;
 
 	float targetForwardAxisValue = 0.0f;
+	float targetRightAxisValue = 0.0f; //
 
 };
