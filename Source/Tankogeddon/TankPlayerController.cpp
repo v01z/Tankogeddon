@@ -9,7 +9,8 @@ void ATankPlayerController::SetupInputComponent()
 	Super::SetupInputComponent();
 
 	InputComponent->BindAxis("MoveForward", this, &ATankPlayerController::MoveForward);
-	InputComponent->BindAxis("MoveRight", this, &ATankPlayerController::MoveRight); //
+	InputComponent->BindAxis("MoveRight", this, &ATankPlayerController::MoveRight); 
+	InputComponent->BindAxis("RotateRight", this, &ATankPlayerController::RotateRight); //
 }
 
 void ATankPlayerController::BeginPlay()
@@ -34,4 +35,12 @@ void ATankPlayerController::MoveRight(float Value)
 		TankPawn->MoveRight(Value);
 	}
 
+}
+
+void ATankPlayerController::RotateRight(float Value)
+{
+	if (TankPawn)
+	{
+		TankPawn->RotateRight(Value);
+	}
 }
