@@ -20,13 +20,15 @@ public:
 
 	void MoveForward(float Value);
 	void MoveRight(float Value); 
-	void RotateRight(float Value); //
+	void RotateRight(float Value); 
 
 	void Move(float DeltaTime); 
 
 	
 
 protected:
+	virtual void BeginPlay() override;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* BodyMesh;
 
@@ -48,8 +50,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float RotationSpeed = 100.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement | Rotation")
+	float TurretRotationInterpolationKey = 0.5f;
+
+	UPROPERTY()
+	class ATankPlayerController* TankController; 
+
+private:
 	float targetForwardAxisValue = 0.0f;
 	float targetRightAxisValue = 0.0f; 
-	float targetRotateRightAxisValue = 0.0f; //
+	float targetRotateRightAxisValue = 0.0f; 
 
 };

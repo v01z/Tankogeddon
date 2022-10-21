@@ -3,6 +3,7 @@
 
 #include "TankPlayerController.h"
 #include "TankPawn.h"
+#include "DrawDebugHelpers.h"
 
 void ATankPlayerController::SetupInputComponent()
 {
@@ -13,9 +14,30 @@ void ATankPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("RotateRight", this, &ATankPlayerController::RotateRight); //
 }
 
+void ATankPlayerController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	FVector MouseDirection;
+	DeprojectMousePositionToWorld(MousePos, MouseDirection);
+	FVector PawnPosition = TankPawn->GetActorLocation();
+	MousePos.Z = PawnPosition.Z;
+	FVector dir = MousePos - PawnPosition;
+	dir.Normalize();
+	MousePos = PawnPosition + dir * 1000;
+
+	DrawDebugLine(GetWorld(), PawnPosition, MousePos, FColor::Green, false, 0.1f, 0, 5);
+}
+
+FVector ATankPlayerController::GetMousePosition()
+{
+	return MousePos;
+}
+
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	bShowMouseCursor = true;
 	
 	TankPawn = Cast<ATankPawn>(GetPawn());
 }
