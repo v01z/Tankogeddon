@@ -38,6 +38,12 @@ void ATankPawn::Tick(float DeltaTime)
 	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, FString::Printf(TEXT("HELLO")));
 
 	Move(DeltaTime);
+
+	float yawRotation = RotationSpeed * targetRotateRightAxisValue * DeltaTime;
+	FRotator currentRotation = GetActorRotation();
+	yawRotation += currentRotation.Yaw;
+	FRotator newRotation = FRotator(0.0f, yawRotation, 0.0f);
+	SetActorRotation(newRotation);
 }
 
 void ATankPawn::MoveForward(float Value)
@@ -48,6 +54,11 @@ void ATankPawn::MoveForward(float Value)
 void ATankPawn::MoveRight(float Value)
 {
 	targetRightAxisValue = Value;
+}
+
+void ATankPawn::RotateRight(float Value)
+{
+	targetRotateRightAxisValue = Value;
 }
 
 void ATankPawn::Move(float DeltaTime)
