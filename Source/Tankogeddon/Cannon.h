@@ -22,6 +22,8 @@ public:
 	bool IsReadyToFire();
 	void Reload();
 
+	void ReloadCartridge();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -43,7 +45,9 @@ protected:
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Fire params")
 	float Damage = 1.0f;
 
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Ammo")
+	int Ammo = 3;
+
 	bool bReadyToFire = true;
 	FTimerHandle ReloadTimer;
-
 };

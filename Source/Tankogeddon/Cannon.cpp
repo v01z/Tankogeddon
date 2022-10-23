@@ -40,9 +40,15 @@ void ACannon::Fire()
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Fire trace");
 	}
 	
-	//After shot we have to reload
+	Ammo--;
 	bReadyToFire = false;
-	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate, false);
+
+	if (Ammo < 1)
+	{
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate * 2, false);
+	}
+	else
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate, false);
 
 }
 
@@ -55,20 +61,37 @@ void ACannon::FireSpecial()
 
 	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Special fire");
 
+	Ammo--;
 	bReadyToFire = false;
-	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate, false);
 
+	if (Ammo < 1)
+	{
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate * 2, false);
+	}
+	else
+		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate, false);
 }
 
 bool ACannon::IsReadyToFire()
 {
-	//return bReadyToFire && Ammo > 0; //mark for homework
 	return bReadyToFire;
+}
+
+void ACannon::ReloadCartridge()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Out of ammo, reloading..");
+
+	Ammo = 3;
+
+	bReadyToFire = true;
 }
 
 void ACannon::Reload()
 {
-	bReadyToFire = true;
+	if (!IsReadyToFire() && Ammo < 1)
+		ReloadCartridge();
+	else
+		bReadyToFire = true;
 }
 
 void ACannon::BeginPlay()
