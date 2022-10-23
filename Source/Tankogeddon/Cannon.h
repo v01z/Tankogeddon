@@ -16,6 +16,9 @@ public:
 	ACannon();
 
 	void Fire();
+
+	void FireSpecial();
+
 	bool IsReadyToFire();
 	void Reload();
 

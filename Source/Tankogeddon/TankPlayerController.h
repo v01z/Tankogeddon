@@ -30,6 +30,8 @@ protected:
 	void RotateRight(float Value);
 
 	void Fire();
+
+	void FireSpecial();
 		
 	FVector MousePos;
 };

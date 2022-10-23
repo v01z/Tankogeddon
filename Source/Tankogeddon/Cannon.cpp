@@ -28,7 +28,6 @@ void ACannon::Fire()
 		return;
 	}
 
-	//if canon type == projectile
 	if (CannonType == ECannonType::FireProjectile)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Purple, "Fire projectile");
@@ -36,12 +35,26 @@ void ACannon::Fire()
 		//if we want using VA-parameters
 		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Purple, FString::Printf(TEXT("AMMo: %d"), Ammo));
 	}
-	else //else we shoot using beam (trace)
+	else //CannonType == ECannonType::FireTrace
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Fire trace");
 	}
-
+	
 	//After shot we have to reload
+	bReadyToFire = false;
+	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate, false);
+
+}
+
+void ACannon::FireSpecial()
+{
+	if (!IsReadyToFire())
+	{
+		return;
+	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, "Special fire");
+
 	bReadyToFire = false;
 	GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &ACannon::Reload, FireRate, false);
 

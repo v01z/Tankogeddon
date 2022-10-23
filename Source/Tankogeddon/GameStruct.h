@@ -10,7 +10,9 @@ UENUM(BluePrintType)
 enum class ECannonType : uint8
 {
 	FireTrace = 0 UMETA(DisplayName = "Use Trace"),
-	FireProjectile = 1 UMETA(DisplayName = "Use projectile")
+	FireProjectile = 1 UMETA(DisplayName = "Use projectile"),
+	
+	FireSpecial = 2 UMETA(DisplayName = "Special Fire")
 };
 
 UCLASS()
