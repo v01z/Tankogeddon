@@ -26,6 +26,8 @@ void AAmmoBox::OnMeshOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	{
 		TankPawn->SetupCannon(CannonClass);
 		//Here we need to increase ammo count (third task)
+		//TankPawn()->AddAmmo
+
 		Destroy();
 	}
 }

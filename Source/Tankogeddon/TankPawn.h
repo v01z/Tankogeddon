@@ -31,6 +31,8 @@ public:
 
 	void SetupCannon(TSubclassOf<ACannon> newCannonClass);
 
+	//ACannon* getCannon(); for homework
+
 	
 
 protected:
