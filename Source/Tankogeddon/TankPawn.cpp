@@ -142,7 +142,7 @@ void ATankPawn::BeginPlay()
 	Super::BeginPlay();
 
 	TankController = Cast<ATankPlayerController>(GetController());
-	SetupCannon(CannonClass);
+	SetupCannon(EquippedCannonClass);
 }
 
 

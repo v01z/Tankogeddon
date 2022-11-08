@@ -46,6 +46,29 @@ void ACannon::Fire()
 	else //CannonType == ECannonType::FireTrace
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Fire trace");
+
+		FHitResult hitResult;
+		FCollisionQueryParams traceParams = FCollisionQueryParams();
+		traceParams.AddIgnoredActor(this);
+		traceParams.bReturnPhysicalMaterial = false;
+
+		FVector Start = ProjectileSpawnPoint->GetComponentLocation();
+		FVector End = Start + ProjectileSpawnPoint->GetForwardVector() * FireRange;
+
+		if (GetWorld()->LineTraceSingleByChannel(hitResult, Start, End, ECollisionChannel::ECC_Visibility, traceParams))
+		{
+			DrawDebugLine(GetWorld(), Start, hitResult.Location, FColor::Red, false, 1.0f, 0, 5);
+			if (hitResult.GetActor())
+			{
+				AActor* OverlappedActor = hitResult.GetActor();
+				UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *OverlappedActor->GetName());
+				OverlappedActor->Destroy();
+			}
+		}
+		else
+		{
+			DrawDebugLine(GetWorld(), Start, End, FColor::Yellow, false, 1.0f, 0, 5);
+		}
 	}
 	
 	Ammo--;

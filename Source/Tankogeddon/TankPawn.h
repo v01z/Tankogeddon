@@ -54,8 +54,17 @@ protected:
 	UPROPERTY()
 	ACannon* Cannon;
 
+	//only one cannon class
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-	TSubclassOf<ACannon> CannonClass;
+	//TSubclassOf<ACannon> CannonClass;
+	TSubclassOf<ACannon> EquippedCannonClass;
+
+	//We need swap cannons on pressing 'Enter'
+
+	//second type of cannon (change name)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+	TSubclassOf<ACannon> SecondCannonClass;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 	class UArrowComponent* CannonSetupPoint;
