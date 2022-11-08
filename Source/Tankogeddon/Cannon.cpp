@@ -4,6 +4,7 @@
 #include "Cannon.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/ArrowComponent.h"
+#include "Projectile.h"
 
 // Sets default values
 ACannon::ACannon()
@@ -31,6 +32,13 @@ void ACannon::Fire()
 	if (CannonType == ECannonType::FireProjectile)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Purple, "Fire projectile");
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+			ProjectileSpawnPoint->GetComponentRotation());
+
+		if (Projectile)
+		{
+			Projectile->Start();
+		}
 
 		//if we want using VA-parameters
 		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Purple, FString::Printf(TEXT("AMMo: %d"), Ammo));
