@@ -130,12 +130,27 @@ void ATankPawn::SetupCannon(TSubclassOf<ACannon> newCannonClass)
 		Cannon->Destroy();
 	}
 
+	EquippedCannonClass = newCannonClass;
 	FActorSpawnParameters spawnParams;
 	spawnParams.Instigator = this;
 	spawnParams.Owner = this;
 
 	Cannon = GetWorld()->SpawnActor<ACannon>(newCannonClass, spawnParams);
 	Cannon->AttachToComponent(CannonSetupPoint, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+}
+
+void ATankPawn::ChangeCannon()
+{
+	TSubclassOf<ACannon> TempCannon;
+	TempCannon = EquippedCannonClass;
+	EquippedCannonClass = SecondCannonClass;
+	SecondCannonClass = TempCannon;
+	SetupCannon(EquippedCannonClass);
+}
+
+ACannon* ATankPawn::getCannon()
+{
+	return Cannon;
 }
 
 void ATankPawn::BeginPlay()

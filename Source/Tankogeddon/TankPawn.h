@@ -30,8 +30,8 @@ public:
 	void FireSpecial();
 
 	void SetupCannon(TSubclassOf<ACannon> newCannonClass);
-
-	//ACannon* getCannon(); for homework
+	void ChangeCannon();
+	ACannon* getCannon(); 
 
 	
 
@@ -53,23 +53,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UCameraComponent* Camera;
 
-	UPROPERTY()
-	ACannon* Cannon;
-
-	//only one cannon class
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-	//TSubclassOf<ACannon> CannonClass;
 	TSubclassOf<ACannon> EquippedCannonClass;
-
-	//We need swap cannons on pressing 'Enter'
-
-	//second type of cannon (change name)
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 	TSubclassOf<ACannon> SecondCannonClass;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 	class UArrowComponent* CannonSetupPoint;
+
+	UPROPERTY()
+	ACannon* Cannon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MoveSpeed = 100.0f;
