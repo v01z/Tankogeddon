@@ -117,7 +117,6 @@ void ATankPawn::FireSpecial()
 
 }
 
-//need to member class of cannon (and switch to other; second task)
 void ATankPawn::SetupCannon(TSubclassOf<ACannon> newCannonClass)
 {
 	if (!newCannonClass)

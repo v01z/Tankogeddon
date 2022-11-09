@@ -23,6 +23,8 @@ public:
 	void Reload();
 
 	void ReloadCartridge();
+	void AddAmmo(int ammo_count);
+	int GetAmmo();
 
 protected:
 	virtual void BeginPlay() override;

@@ -24,10 +24,14 @@ void AAmmoBox::OnMeshOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	ATankPawn* TankPawn = Cast<ATankPawn>(OtherActor);
 	if (TankPawn)
 	{
-		//TankPawn->SetupCannon(CannonClass);
 		TankPawn->ChangeCannon();
-		//Here we need to increase ammo count (third task)
-		//TankPawn()->AddAmmo
+		ACannon* cannon = TankPawn->getCannon();
+		if (cannon)
+		{
+			cannon->AddAmmo(ammo_present);
+			GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Orange,
+				FString::Printf(TEXT("Added %d amount of ammo.\n Total ammo count on a current cannon is: %d"), ammo_present, cannon->GetAmmo()));
+		}
 
 		Destroy();
 	}

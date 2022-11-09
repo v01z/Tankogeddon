@@ -117,6 +117,17 @@ void ACannon::ReloadCartridge()
 	bReadyToFire = true;
 }
 
+void ACannon::AddAmmo(int ammo_count)
+{
+	if(ammo_count > 0)
+		Ammo += ammo_count;
+}
+
+int ACannon::GetAmmo()
+{
+	return Ammo;
+}
+
 void ACannon::Reload()
 {
 	if (!IsReadyToFire() && Ammo < 1)

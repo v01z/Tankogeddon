@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "AmmoBox.generated.h"
-//#include "Cannon.h"
 
 UCLASS()
 class TANKOGEDDON_API AAmmoBox : public AActor
@@ -26,4 +25,6 @@ protected:
 	void OnMeshOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
 		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	int ammo_present{ 10 };
 };
