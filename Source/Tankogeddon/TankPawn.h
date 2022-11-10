@@ -10,7 +10,7 @@ class UStaticMeshComponent;
 class ACannon;
 
 UCLASS()
-class TANKOGEDDON_API ATankPawn : public APawn
+class TANKOGEDDON_API ATankPawn : public APawn //new parent class should inherit APawn, and ATankPawn inherits from new parent class in turn
 {
 	GENERATED_BODY()
 
