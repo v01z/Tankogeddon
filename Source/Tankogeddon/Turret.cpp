@@ -20,6 +20,7 @@ ATurret::ATurret()
 
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
 	TurretMesh->SetupAttachment(BodyMesh, "ADD_Parts_Here_Socket");
+	//TurretMesh->SetupAttachment(BodyMesh);
 
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);
@@ -36,6 +37,11 @@ ATurret::ATurret()
 		TurretMesh->SetStaticMesh(TurretMeshTemp);
 	}
 
+}
+
+void ATurret::TakeDamage(FDamageData DamageData)
+{
+	//
 }
 
 void ATurret::BeginPlay()
@@ -76,15 +82,19 @@ void ATurret::Targeting()
 {
 	if (!PlayerPawn)
 	{
+		//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Turret: No PlayerPawn"); //debug
 		return;
 	}
 
 	if (IsPlayerInRange())
 	{
+
+		//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Turret: I see u, player!"); //debug
 		RotateToPlayer();
 
 		if (CanFire())
 		{
+			//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Turret can fire"); //debug
 			Fire();
 		}
 	}
@@ -101,8 +111,10 @@ void ATurret::RotateToPlayer()
 
 void ATurret::Fire()
 {
+	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Turret checks for cannon..");//debug
 	if (Cannon)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, "Turret fires!");//debug
 		Cannon->Fire();
 	}
 }
@@ -119,6 +131,7 @@ bool ATurret::CanFire()
 	DirToPlayer.Normalize();
 
 	float aimAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(targetDir, DirToPlayer)));
+	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, FString::Printf(TEXT("aimAngle == %f"), aimAngle)); //debug
 	return aimAngle <= Accurency;
 }
 

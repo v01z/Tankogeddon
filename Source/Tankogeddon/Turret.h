@@ -4,17 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DamageTaker.h"
 #include "Turret.generated.h"
 
 class UStaticMeshComponent;
 class ACannon;
 UCLASS()
-class TANKOGEDDON_API ATurret : public AActor //here is AActor, but no problem if parent class will be APawn
+class TANKOGEDDON_API ATurret : public AActor, public IDamageTaker //here is AActor, but no problem if parent class will be APawn
 {
 	GENERATED_BODY()
 	
 public:	
 	ATurret();
+
+	UFUNCTION()
+	virtual void TakeDamage(FDamageData DamageData) override;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* BodyMesh;

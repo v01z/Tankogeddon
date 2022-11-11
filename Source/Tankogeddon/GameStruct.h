@@ -15,6 +15,19 @@ enum class ECannonType : uint8
 	FireSpecial = 2 UMETA(DisplayName = "Special Fire")
 };
 
+USTRUCT()
+struct FDamageData
+{
+	GENERATED_BODY()
+
+	float DamageValue;
+
+	Actor* Instigator;
+
+	Actor* DamageMaker;
+
+};
+
 UCLASS()
 class TANKOGEDDON_API UGameStruct : public UObject
 {
