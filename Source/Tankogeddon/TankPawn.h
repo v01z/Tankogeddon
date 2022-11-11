@@ -2,17 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
-#include "DamageTaker.h"
-//#include "GameStruct.h"
+#include "UniPawn.h"
 #include "TankPawn.generated.h"
 
-class UStaticMeshComponent;
-class ACannon;
-
 UCLASS()
-class TANKOGEDDON_API ATankPawn : public APawn, public IDamageTaker //new parent class should inherit APawn, and ATankPawn inherits from new parent class in turn
+class TANKOGEDDON_API ATankPawn : public AUniPawn
 {
 	GENERATED_BODY()
 
@@ -27,38 +21,21 @@ public:
 
 	void Move(float DeltaTime); 
 
-	void Fire();
+	virtual void Fire() override; 
 
 	void FireSpecial();
 
-	void SetupCannon(TSubclassOf<ACannon> newCannonClass);
+	virtual void SetupCannon(TSubclassOf<ACannon>)override; 
 	void ChangeCannon();
 	ACannon* getCannon(); 
 
-	virtual void TakeDamage(FDamageData DamageData) override;
-
-	UFUNCTION()
-	void DamageTaked(float Value);
-
-	UFUNCTION()
-	void Die();
-
-	
+	virtual void Die()override; 
 
 protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* BodyMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* TurretMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* BoxCollision;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UHealthComponent* HealthComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class USpringArmComponent* SpringArm;
@@ -71,12 +48,6 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 	TSubclassOf<ACannon> SecondCannonClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
-	class UArrowComponent* CannonSetupPoint;
-
-	UPROPERTY()
-	ACannon* Cannon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float MoveSpeed = 100.0f;

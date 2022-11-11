@@ -2,51 +2,26 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "DamageTaker.h"
+#include "UniPawn.h"
 #include "Turret.generated.h"
 
-class UStaticMeshComponent;
-class ACannon;
 UCLASS()
-class TANKOGEDDON_API ATurret : public AActor, public IDamageTaker //here is AActor, but no problem if parent class will be APawn
+class TANKOGEDDON_API ATurret : public AUniPawn
 {
 	GENERATED_BODY()
 	
 public:	
 	ATurret();
 
-	UFUNCTION()
-	virtual void TakeDamage(FDamageData DamageData) override;
-
-	UFUNCTION()
-	void Die();
-
-	UFUNCTION()
-	void DamageTaked(float Value);
+	virtual void Die() override; 
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* BodyMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	UStaticMeshComponent* TurretMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UArrowComponent* CannonSetupPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* HitCollider;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 	TSubclassOf<ACannon> CannonClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
-	class UHealthComponent* HealthComponent;
-
-	UPROPERTY()
-	ACannon* Cannon;
 
 	UPROPERTY()
 	class APawn* PlayerPawn;
@@ -69,10 +44,10 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void Destroyed() override;
 
-	void SetupCannon(TSubclassOf<ACannon> newCannonClass);
+	virtual void SetupCannon(TSubclassOf<ACannon> newCannonClass) override; 
 	void Targeting();
 	void RotateToPlayer();
-	void Fire();
+	virtual void Fire() override; 
 	bool IsPlayerInRange();
 	bool CanFire();
 };

@@ -38,7 +38,6 @@ ATankPawn::ATankPawn()
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);
 
-	//HealthComponent->CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);
 	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
@@ -48,16 +47,11 @@ void ATankPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, FString::Printf(TEXT("HELLO")));
-
 	//Movement
 	Move(DeltaTime);
 
 	//Tank rotation
 	float yawRotation = RotationSpeed * targetRotateRightAxisValue * DeltaTime;
-
-	//float LerpRotateValue = FMath::Lerp(targetRotateRightAxisValue, LerpRotateValue, TurretRotationInterpolationKey);
-	//UE_LOG(LogTemp, Warning, TEXT("Non lerp: %f, Lerp: %f"), targetRotateRightAxisValue, LerpRotateValue);
 
 	FRotator currentRotation = GetActorRotation();
 	yawRotation += currentRotation.Yaw;
@@ -74,7 +68,6 @@ void ATankPawn::Tick(float DeltaTime)
 		targetRotation.Roll = TurretRotation.Roll;
 
 		FRotator newTurretRotation = FMath::Lerp(TurretRotation, targetRotation, TurretRotationInterpolationKey);
-		//UE_LOG(LogTemp, Warning, TEXT("targetRotation: %s, LerpRotation: %s"), *targetRotation.ToString(), *newTurretRotation.ToString());
 		TurretMesh->SetWorldRotation(newTurretRotation);
 	}
 }
@@ -158,16 +151,6 @@ ACannon* ATankPawn::getCannon()
 	return Cannon;
 }
 
-void ATankPawn::TakeDamage(FDamageData DamageData)
-{
-	HealthComponent->TakeDamage(DamageData);
-}
-
-void ATankPawn::DamageTaked(float Value)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Health is: %f"), HealthComponent->GetHealth());
-}
-
 void ATankPawn::Die()
 {
 	if (Cannon)
@@ -185,5 +168,4 @@ void ATankPawn::BeginPlay()
 	TankController = Cast<ATankPlayerController>(GetController());
 	SetupCannon(EquippedCannonClass);
 }
-
 
