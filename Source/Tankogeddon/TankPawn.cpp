@@ -165,7 +165,7 @@ void ATankPawn::TakeDamage(FDamageData DamageData)
 
 void ATankPawn::DamageTaked(float Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Health is: %f"), Value);
+	UE_LOG(LogTemp, Warning, TEXT("Health is: %f"), HealthComponent->GetHealth());
 }
 
 void ATankPawn::Die()
