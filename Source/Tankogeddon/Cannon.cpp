@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/ArrowComponent.h"
 #include "Projectile.h"
+#include "DamageTaker.h"
 
 // Sets default values
 ACannon::ACannon()
@@ -39,9 +40,6 @@ void ACannon::Fire()
 		{
 			Projectile->Start();
 		}
-
-		//if we want using VA-parameters
-		//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Purple, FString::Printf(TEXT("AMMo: %d"), Ammo));
 	}
 	else //CannonType == ECannonType::FireTrace
 	{
@@ -62,7 +60,18 @@ void ACannon::Fire()
 			{
 				AActor* OverlappedActor = hitResult.GetActor();
 				UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *OverlappedActor->GetName());
-				OverlappedActor->Destroy();
+
+				IDamageTaker* DamagedActor = Cast<IDamageTaker>(OverlappedActor);
+				if (DamagedActor)
+				{
+					FDamageData damageData;
+					damageData.DamageValue = Damage * 2; //beam has more power
+					damageData.Instigator = GetOwner();
+					damageData.DamageMaker = this;
+					DamagedActor->TakeDamage(damageData);
+				}
+				else
+					OverlappedActor->Destroy(); //unessesary things
 			}
 		}
 		else
