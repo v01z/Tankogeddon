@@ -4,13 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "DamageTaker.h"
+//#include "GameStruct.h"
 #include "TankPawn.generated.h"
 
 class UStaticMeshComponent;
 class ACannon;
 
 UCLASS()
-class TANKOGEDDON_API ATankPawn : public APawn //new parent class should inherit APawn, and ATankPawn inherits from new parent class in turn
+class TANKOGEDDON_API ATankPawn : public APawn, public IDamageTaker //new parent class should inherit APawn, and ATankPawn inherits from new parent class in turn
 {
 	GENERATED_BODY()
 
@@ -33,6 +35,14 @@ public:
 	void ChangeCannon();
 	ACannon* getCannon(); 
 
+	virtual void TakeDamage(FDamageData DamageData) override;
+
+	UFUNCTION()
+	void DamageTaked(float Value);
+
+	UFUNCTION()
+	void Die();
+
 	
 
 protected:
@@ -46,6 +56,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* BoxCollision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	class UHealthComponent* HealthComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class USpringArmComponent* SpringArm;

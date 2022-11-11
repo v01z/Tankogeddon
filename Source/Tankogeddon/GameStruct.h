@@ -22,9 +22,9 @@ struct FDamageData
 
 	float DamageValue;
 
-	Actor* Instigator;
+	AActor* Instigator;
 
-	Actor* DamageMaker;
+	AActor* DamageMaker;
 
 };
 

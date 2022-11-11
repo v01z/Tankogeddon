@@ -30,20 +30,20 @@ void AProjectile::Move()
 
 void AProjectile::OnMeshOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	AActor* Owner = GetOwner(); //ACannon
-	AActor* OwnerByOwner = Owner != nullptr ? Owner->GetOwner() : nullptr; //ATankPawn or ATurret
+	AActor* owner = GetOwner(); //ACannon
+	AActor* OwnerByOwner = owner != nullptr ? owner->GetOwner() : nullptr; //ATankPawn or ATurret
 
-	if (OtherActor != Owner || OtherActor != OwnerByOwner)
+	if (OtherActor != owner || OtherActor != OwnerByOwner)
 	{
 		IDamageTaker* DamageActor = Cast<IDamageTaker>(OtherActor);
 		if (DamageActor)
 		{
 			FDamageData damageData;
 			damageData.DamageValue = Damage;
-			damageData.Instigator = Owner;
+			damageData.Instigator = owner;
 			damageData.DamageMaker = this;
 
-			damageActor->TakeDamage(damageData);
+			DamageActor->TakeDamage(damageData);
 		}
 		else
 		{

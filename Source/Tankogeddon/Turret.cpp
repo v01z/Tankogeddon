@@ -7,6 +7,7 @@
 #include "Engine/StaticMesh.h"
 #include "Cannon.h"
 #include <Kismet/KismetMathLibrary.h>
+#include "HealthComponent.h"
 
 ATurret::ATurret()
 {
@@ -37,11 +38,25 @@ ATurret::ATurret()
 		TurretMesh->SetStaticMesh(TurretMeshTemp);
 	}
 
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATurret::DamageTaked);
+	HealthComponent->OnDie.AddUObject(this, &ATurret::Die);
+
 }
 
 void ATurret::TakeDamage(FDamageData DamageData)
 {
-	//
+	HealthComponent->TakeDamage(DamageData);
+}
+
+void ATurret::Die()
+{
+	Destroy();
+}
+
+void ATurret::DamageTaked(float Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Health is: %f"), Value);
 }
 
 void ATurret::BeginPlay()

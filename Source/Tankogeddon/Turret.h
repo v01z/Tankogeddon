@@ -20,6 +20,12 @@ public:
 	UFUNCTION()
 	virtual void TakeDamage(FDamageData DamageData) override;
 
+	UFUNCTION()
+	void Die();
+
+	UFUNCTION()
+	void DamageTaked(float Value);
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* BodyMesh;
@@ -35,6 +41,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
 	TSubclassOf<ACannon> CannonClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	class UHealthComponent* HealthComponent;
 
 	UPROPERTY()
 	ACannon* Cannon;

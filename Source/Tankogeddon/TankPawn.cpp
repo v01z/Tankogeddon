@@ -10,6 +10,7 @@
 #include <Kismet/KismetMathLibrary.h>
 #include "Cannon.h"
 #include "Components/ArrowComponent.h"
+#include "HealthComponent.h"
 
 ATankPawn::ATankPawn()
 {
@@ -36,6 +37,11 @@ ATankPawn::ATankPawn()
 
 	CannonSetupPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("CannonSetupPoint"));
 	CannonSetupPoint->SetupAttachment(TurretMesh);
+
+	//HealthComponent->CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
+	HealthComponent->OnHealthChanged.AddUObject(this, &ATankPawn::DamageTaked);
+	HealthComponent->OnDie.AddUObject(this, &ATankPawn::Die);
 }
 
 void ATankPawn::Tick(float DeltaTime)
@@ -150,6 +156,26 @@ void ATankPawn::ChangeCannon()
 ACannon* ATankPawn::getCannon()
 {
 	return Cannon;
+}
+
+void ATankPawn::TakeDamage(FDamageData DamageData)
+{
+	HealthComponent->TakeDamage(DamageData);
+}
+
+void ATankPawn::DamageTaked(float Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Health is: %f"), Value);
+}
+
+void ATankPawn::Die()
+{
+	if (Cannon)
+	{
+		Cannon->Destroy();
+	}
+	Destroy();
+
 }
 
 void ATankPawn::BeginPlay()
