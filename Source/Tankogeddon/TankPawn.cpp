@@ -99,7 +99,7 @@ void ATankPawn::Move(float DeltaTime)
 	SetActorLocation(movePosition, true);
 }
 
-void ATankPawn::Fire()
+void ATankPawn::Fire()const
 {
 	if (Cannon)
 	{
@@ -153,6 +153,8 @@ ACannon* ATankPawn::getCannon()
 
 void ATankPawn::Die()
 {
+	Super::Die();
+
 	if (Cannon)
 	{
 		Cannon->Destroy();

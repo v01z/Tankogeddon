@@ -3,6 +3,7 @@
 
 #include "UniPawn.h"
 #include "HealthComponent.h"
+#include "Cannon.h"
 
 AUniPawn::AUniPawn():
 	BodyMesh{},
@@ -15,17 +16,12 @@ AUniPawn::AUniPawn():
 
 }
 
-void AUniPawn::Fire()
-{
-}
+void AUniPawn::Fire()const {}
 
-void AUniPawn::SetupCannon(TSubclassOf<ACannon> newCannonClass)
-{
-}
+void AUniPawn::SetupCannon(TSubclassOf<ACannon> newCannonClass) {}
 
 void AUniPawn::TakeDamage(FDamageData DamageData)
 {
-
 	HealthComponent->TakeDamage(DamageData);
 }
 
@@ -36,6 +32,7 @@ void AUniPawn::DamageTaked(float Value)
 
 void AUniPawn::Die()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Unit destroyed!"));
 }
 
 void AUniPawn::BeginPlay()

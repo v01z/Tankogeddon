@@ -15,7 +15,7 @@ class TANKOGEDDON_API AUniPawn : public APawn, public IDamageTaker
 	GENERATED_BODY()
 
 public:
-	virtual void Fire();
+	virtual void Fire()const;
 	virtual void SetupCannon(TSubclassOf<ACannon>);
 
 	virtual void TakeDamage(FDamageData DamageData) override;

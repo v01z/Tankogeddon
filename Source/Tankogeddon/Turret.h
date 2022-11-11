@@ -13,9 +13,18 @@ class TANKOGEDDON_API ATurret : public AUniPawn
 public:	
 	ATurret();
 
-	virtual void Die() override; 
-
 protected:
+
+	virtual void Fire() const override; 
+	virtual void BeginPlay() override;
+	virtual void SetupCannon(TSubclassOf<ACannon> newCannonClass) override; 
+	virtual void Die() override; 
+	virtual void Destroyed() override;
+
+	void Targeting();
+	void RotateToPlayer();
+	bool IsPlayerInRange()const;
+	bool CanFire();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* HitCollider;
@@ -40,14 +49,4 @@ protected:
 
 	const FString BodyMeshPath = "StaticMesh'/Game/CSC/Meshes/SM_CSC_Tower1.SM_CSC_Tower1'";
 	const FString TurretMeshPath = "StaticMesh'/Game/CSC/Meshes/SM_CSC_Gun1.SM_CSC_Gun1'";
-
-	virtual void BeginPlay() override;
-	virtual void Destroyed() override;
-
-	virtual void SetupCannon(TSubclassOf<ACannon> newCannonClass) override; 
-	void Targeting();
-	void RotateToPlayer();
-	virtual void Fire() override; 
-	bool IsPlayerInRange();
-	bool CanFire();
 };

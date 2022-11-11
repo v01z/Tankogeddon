@@ -13,26 +13,23 @@ class TANKOGEDDON_API ATankPawn : public AUniPawn
 public:
 	ATankPawn();
 
-	virtual void Tick(float DeltaTime) override;
+	virtual void Fire() const override; 
+
+	void ChangeCannon();
+	ACannon* getCannon(); 
+	void FireSpecial();
 
 	void MoveForward(float Value);
 	void MoveRight(float Value); 
 	void RotateRight(float Value); 
 
-	void Move(float DeltaTime); 
-
-	virtual void Fire() override; 
-
-	void FireSpecial();
-
-	virtual void SetupCannon(TSubclassOf<ACannon>)override; 
-	void ChangeCannon();
-	ACannon* getCannon(); 
-
-	virtual void Die()override; 
-
 protected:
 	virtual void BeginPlay() override;
+	virtual void SetupCannon(TSubclassOf<ACannon>)override; 
+	virtual void Die()override; 
+	virtual void Tick(float DeltaTime) override;
+
+	void Move(float DeltaTime); 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* BoxCollision;

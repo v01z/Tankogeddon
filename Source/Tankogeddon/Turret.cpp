@@ -45,6 +45,7 @@ ATurret::ATurret()
 
 void ATurret::Die()
 {
+	Super::Die();
 	Destroy();
 }
 
@@ -70,6 +71,7 @@ void ATurret::Destroyed()
 
 void ATurret::SetupCannon(TSubclassOf<ACannon> newCannonClass)
 {
+
 	if (!newCannonClass)
 	{
 		return;
@@ -109,7 +111,7 @@ void ATurret::RotateToPlayer()
 	TurretMesh->SetWorldRotation(FMath::Lerp(currRotation, targetRotation, TargetingSpeed));
 }
 
-void ATurret::Fire()
+void ATurret::Fire()const
 {
 	if (Cannon)
 	{
@@ -118,7 +120,7 @@ void ATurret::Fire()
 	}
 }
 
-bool ATurret::IsPlayerInRange()
+bool ATurret::IsPlayerInRange()const
 {
 	return FVector::Distance(PlayerPawn->GetActorLocation(), GetActorLocation()) <= TargetingRange;
 }
