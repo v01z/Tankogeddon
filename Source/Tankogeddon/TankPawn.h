@@ -23,6 +23,12 @@ public:
 	void MoveRight(float Value); 
 	void RotateRight(float Value); 
 
+	TArray<FVector> GetPatrollingPath() const { return PatrollingPath;  }
+	float GetMovementAccurency() const { return MovementAccurency;  }
+
+	FVector GetTurretForwardVector() const;
+	void RotateTurretTo(FVector TargetPosition);
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupCannon(TSubclassOf<ACannon>)override; 
@@ -30,6 +36,12 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 	void Move(float DeltaTime); 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI", Meta = (MakeEditWidget = true))
+	TArray<FVector> PatrollingPath;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+	float MovementAccurency = 50;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* BoxCollision;
