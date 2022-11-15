@@ -25,6 +25,8 @@ protected:
 	void RotateToPlayer();
 	bool IsPlayerInRange()const;
 	bool CanFire();
+	bool IsPlayerSeen();
+	FVector GetEyesPosition() const;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* HitCollider;

@@ -120,7 +120,6 @@ void ATankAIController::Fire()
 	TankPawn->Fire();
 }
 
-//make the same for a turret
 bool ATankAIController::IsPlayerSeen()
 {
 	FVector playerPos = PlayerPawn->GetActorLocation();
