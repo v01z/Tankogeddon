@@ -42,6 +42,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Targeting")
 	float Accurency = 10.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cannon")
+	FTimerHandle WeaponSwapTimer;
+
+	void SwapWeapon();
+
 	int32 CurrentPatrollingIndex = 0;
 
 	float GetRotationValue();

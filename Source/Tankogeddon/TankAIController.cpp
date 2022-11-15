@@ -31,11 +31,19 @@ void ATankAIController::BeginPlay()
 	FVector pawnLocation = TankPawn->GetActorLocation();
 	MovementAccurency = TankPawn->GetMovementAccurency();
 	TArray<FVector> points = TankPawn->GetPatrollingPath();
-	for (FVector point : points)
+	for (const FVector &point : points)
 	{
 		PatrollingPoints.Add(point + pawnLocation);
 	}
 	CurrentPatrollingIndex = 0;
+
+	GetWorld()->GetTimerManager().SetTimer(WeaponSwapTimer, this, &ATankAIController::SwapWeapon, 5.0f, true);
+}
+
+void ATankAIController::SwapWeapon()
+{
+	if(TankPawn)
+		TankPawn->ChangeCannon();
 }
 
 float ATankAIController::GetRotationValue()
