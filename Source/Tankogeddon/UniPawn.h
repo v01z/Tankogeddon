@@ -8,7 +8,8 @@
 #include "UniPawn.generated.h"
 
 class UStaticMeshComponent; 
-class ACannon; //
+class ACannon; 
+
 UCLASS()
 class TANKOGEDDON_API AUniPawn : public APawn, public IDamageTaker
 {

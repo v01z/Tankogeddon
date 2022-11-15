@@ -50,6 +50,15 @@ protected:
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Fire params")
 	float Damage = 1.0f;
 
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Effects")
+	class UParticleSystemComponent* ShootEffect;
+
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Effects")
+	class UAudioComponent* AudioEffect;
+
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Effects")
+	TSubclassOf<class UCameraShakeBase> CameraShake;
+
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Ammo")
 	int Ammo = 3;
 

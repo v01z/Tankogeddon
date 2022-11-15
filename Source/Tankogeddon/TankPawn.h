@@ -5,6 +5,7 @@
 #include "UniPawn.h"
 #include "TankPawn.generated.h"
 
+
 UCLASS()
 class TANKOGEDDON_API ATankPawn : public AUniPawn
 {
@@ -28,6 +29,8 @@ public:
 
 	FVector GetTurretForwardVector() const;
 	void RotateTurretTo(FVector TargetPosition);
+
+	FVector GetEyesPosition() const;
 
 protected:
 	virtual void BeginPlay() override;

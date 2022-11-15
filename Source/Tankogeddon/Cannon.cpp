@@ -6,6 +6,9 @@
 #include "Components/ArrowComponent.h"
 #include "Projectile.h"
 #include "DamageTaker.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Components/AudioComponent.h"
+#include "Camera/CameraShakeBase.h"
 
 // Sets default values
 ACannon::ACannon()
@@ -17,9 +20,18 @@ ACannon::ACannon()
 
 	CannonMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CannonMesh"));
 	CannonMesh->SetupAttachment(SceneComp);
+	CannonMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("ArrowComponent"));
 	ProjectileSpawnPoint->SetupAttachment(CannonMesh);
+
+	ShootEffect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ShootEffect"));
+	ShootEffect->SetupAttachment(ProjectileSpawnPoint);
+	ShootEffect->SetAutoActivate(false);
+
+	AudioEffect = CreateDefaultSubobject<UAudioComponent>(TEXT("AudioComponent"));
+	AudioEffect->SetupAttachment(SceneComp);
+	AudioEffect->SetAutoActivate(false);
 
 }
 
@@ -79,6 +91,15 @@ void ACannon::Fire()
 			DrawDebugLine(GetWorld(), Start, End, FColor::Yellow, false, 1.0f, 0, 5);
 		}
 	}
+
+	if (ShootEffect)
+		ShootEffect->ActivateSystem();
+
+	if (AudioEffect)
+		AudioEffect->Play();
+
+	if (CameraShake)
+		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(CameraShake);
 	
 	Ammo--;
 	bReadyToFire = false;
