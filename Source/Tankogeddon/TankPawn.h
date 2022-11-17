@@ -6,6 +6,8 @@
 #include "TankPawn.generated.h"
 
 
+class ATargetPoint;
+
 UCLASS()
 class TANKOGEDDON_API ATankPawn : public AUniPawn
 {
@@ -24,7 +26,9 @@ public:
 	void MoveRight(float Value); 
 	void RotateRight(float Value); 
 
-	TArray<FVector> GetPatrollingPath() const { return PatrollingPath;  }
+	//TArray<FVector> GetPatrollingPath() const { return PatrollingPath;  }
+	TArray<FVector> GetPatrollingPath() const;
+	void SetPatrollingPath(TArray<ATargetPoint*> newPatrollingPath);
 	float GetMovementAccurency() const { return MovementAccurency;  }
 
 	FVector GetTurretForwardVector() const;
@@ -41,7 +45,8 @@ protected:
 	void Move(float DeltaTime); 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI", Meta = (MakeEditWidget = true))
-	TArray<FVector> PatrollingPath;
+	//TArray<FVector> PatrollingPath;
+	TArray<ATargetPoint*> PatrollingPath;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	float MovementAccurency = 50;

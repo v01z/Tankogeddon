@@ -11,6 +11,7 @@
 #include "Cannon.h"
 #include "Components/ArrowComponent.h"
 #include "HealthComponent.h"
+#include "Engine/TargetPoint.h"
 
 ATankPawn::ATankPawn()
 {
@@ -79,6 +80,21 @@ void ATankPawn::MoveRight(float Value)
 void ATankPawn::RotateRight(float Value)
 {
 	targetRotateRightAxisValue = Value;
+}
+
+TArray<FVector> ATankPawn::GetPatrollingPath() const
+{
+	TArray<FVector> points;
+	for (ATargetPoint* point : PatrollingPath)
+	{
+		points.Add(point->GetActorLocation());
+	}
+	return points;
+}
+
+void ATankPawn::SetPatrollingPath(TArray<ATargetPoint*> newPatrollingPath)
+{
+	PatrollingPath = newPatrollingPath;
 }
 
 void ATankPawn::Move(float DeltaTime)
