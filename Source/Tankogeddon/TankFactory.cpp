@@ -7,6 +7,8 @@
 #include "Components/ArrowComponent.h"
 #include "HealthComponent.h"
 #include "TankPawn.h"
+#include "Engine/TargetPoint.h"
+#include "Kismet/GameplayStatics.h"
 
 ATankFactory::ATankFactory()
 {
@@ -46,7 +48,7 @@ void ATankFactory::BeginPlay()
 void ATankFactory::DamageTaked(float DamageValue)
 {
 	UE_LOG(LogTemp, Warning, 
-		TEXT("Tank factory damage: %f, health: %f", DamageValue, HealthComponent->GetHealth()));
+		TEXT("Tank factory damage: %f, health: %f"), DamageValue, HealthComponent->GetHealth());
 }
 
 //homework task 3
@@ -63,5 +65,8 @@ void ATankFactory::SpawnNewTank()
 	ATankPawn* NewTank = GetWorld()->SpawnActorDeferred<ATankPawn>(TankSpawnClass, spawnTransform,
 		this, nullptr, ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
-	NewTank-
+	NewTank->SetPatrollingPath(TankWayPoints);
+
+	UGameplayStatics::FinishSpawningActor(NewTank, NewTank->GetTransform());
+	
 }
