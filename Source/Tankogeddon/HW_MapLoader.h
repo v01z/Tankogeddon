@@ -15,6 +15,8 @@ public:
 	// Sets default values for this actor's properties
 	AHW_MapLoader();
 
+	void SetIsActivated(bool NewIsActivated);
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -23,8 +25,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	class UBoxComponent* BoxCollision;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level loading params")
 	FName LoadLevelName = "SecondLevel";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Level loading params")
+	bool IsActivated = false;
 
 	UFUNCTION()
 	void OnTriggerOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,

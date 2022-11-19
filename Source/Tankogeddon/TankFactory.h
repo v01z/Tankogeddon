@@ -7,6 +7,8 @@
 #include "DamageTaker.h"
 #include "TankFactory.generated.h"
 
+class AHW_MapLoader;
+
 UCLASS()
 class TANKOGEDDON_API ATankFactory : public AActor, public IDamageTaker
 {
@@ -16,6 +18,9 @@ public:
 	ATankFactory();
 
 	virtual void TakeDamage(FDamageData DamageData) override;
+
+	//UMaterial* StoredMaterial;
+	//UMaterialInstanceDynamic* DynamicMaterialInst;
 
 protected:
 	virtual void BeginPlay() override;
@@ -49,8 +54,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
 	TArray<class ATargetPoint*> TankWayPoints;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
+	AHW_MapLoader* LinkedMapLoader;
 
+	/*
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
+	class UMaterial* StartMaterial;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
+	class UMaterial* DestroyMaterial;
+	*/
 
 };

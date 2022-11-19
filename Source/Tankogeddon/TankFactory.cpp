@@ -9,6 +9,7 @@
 #include "TankPawn.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
+#include "HW_MapLoader.h"
 
 ATankFactory::ATankFactory()
 {
@@ -40,6 +41,9 @@ void ATankFactory::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (LinkedMapLoader)
+		LinkedMapLoader->SetIsActivated(false);
+
 	FTimerHandle spawnTimer;
 	GetWorld()->GetTimerManager().SetTimer(spawnTimer, this,
 		&ATankFactory::SpawnNewTank, SpawnTankRate, true, SpawnTankRate);
@@ -51,10 +55,33 @@ void ATankFactory::DamageTaked(float DamageValue)
 		TEXT("Tank factory damage: %f, health: %f"), DamageValue, HealthComponent->GetHealth());
 }
 
-//homework task 3
 void ATankFactory::Die()
 {
+	if (LinkedMapLoader)
+		LinkedMapLoader->SetIsActivated(true);
+
 	Destroy();
+	/*
+	UMaterial* StoredMaterial{};
+	UMaterialInstanceDynamic* DynamicMaterialInst{};
+	static  ConstructorHelpers::FObjectFinder<UMaterial> FoundMaterial(
+		TEXT("/Content/AngarDestroyedMaterial.uasset"));
+	if (FoundMaterial.Succeeded())
+	{
+		StoredMaterial = FoundMaterial.Object;
+	}
+
+	DynamicMaterialInst = UMaterialInstanceDynamic::Create(
+		StoredMaterial, BuildingMesh);
+	BuildingMesh->SetMaterial(0, DynamicMaterialInst);
+	*/
+	
+	//static ConstructorHelpers::FObjectFinder<UMaterial> plane_material(TEXT("Material'/Content/AngarDestroyedMaterial'"));
+	//BuildingMesh->SetMaterial(0, plane_material.Object);
+	/*
+	static const TCHAR* MaterialPath = TEXT("/Content/AngarDestroyedMaterial");
+	UMaterial* Material = LoadMaterialFromPath(MaterialPath);
+	*/
 }
 
 void ATankFactory::SpawnNewTank()

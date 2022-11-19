@@ -27,8 +27,6 @@ void ATankAIController::BeginPlay()
 	Super::BeginPlay();
 
 	Initialize();
-
-	//GetWorld()->GetTimerManager().SetTimer(WeaponSwapTimer, this, &ATankAIController::SwapWeapon, 5.0f, true);
 }
 
 void ATankAIController::SwapWeapon()
@@ -54,8 +52,6 @@ float ATankAIController::GetRotationValue()
 	moveDirection.Normalize();
 	FVector forwardDirection = TankPawn->GetActorForwardVector();
 	FVector rightDirection = TankPawn->GetActorRightVector();
-
-	//DrawDebugLine(GetWorld(), PawnLocation, CurrentPoint, FColor::Green, false, 0.1f, 0, 5);
 
 	float forwardAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(forwardDirection, moveDirection)));
 	float rightAngle = FMath::RadiansToDegrees(acosf(FVector::DotProduct(rightDirection, moveDirection)));
