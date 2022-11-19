@@ -30,6 +30,8 @@ ATankFactory::ATankFactory()
 	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 	HealthComponent->OnHealthChanged.AddUObject(this, &ATankFactory::DamageTaked);
 	HealthComponent->OnDie.AddUObject(this, &ATankFactory::Die);
+
+	DestroyedMaterial = CreateDefaultSubobject<UMaterial>(TEXT("DestroyedMaterial"));
 }
 
 void ATankFactory::TakeDamage(FDamageData DamageData)
@@ -60,28 +62,8 @@ void ATankFactory::Die()
 	if (LinkedMapLoader)
 		LinkedMapLoader->SetIsActivated(true);
 
-	Destroy();
-	/*
-	UMaterial* StoredMaterial{};
-	UMaterialInstanceDynamic* DynamicMaterialInst{};
-	static  ConstructorHelpers::FObjectFinder<UMaterial> FoundMaterial(
-		TEXT("/Content/AngarDestroyedMaterial.uasset"));
-	if (FoundMaterial.Succeeded())
-	{
-		StoredMaterial = FoundMaterial.Object;
-	}
-
-	DynamicMaterialInst = UMaterialInstanceDynamic::Create(
-		StoredMaterial, BuildingMesh);
-	BuildingMesh->SetMaterial(0, DynamicMaterialInst);
-	*/
-	
-	//static ConstructorHelpers::FObjectFinder<UMaterial> plane_material(TEXT("Material'/Content/AngarDestroyedMaterial'"));
-	//BuildingMesh->SetMaterial(0, plane_material.Object);
-	/*
-	static const TCHAR* MaterialPath = TEXT("/Content/AngarDestroyedMaterial");
-	UMaterial* Material = LoadMaterialFromPath(MaterialPath);
-	*/
+	//Destroy();
+	BuildingMesh->SetMaterial(0, DestroyedMaterial);
 }
 
 void ATankFactory::SpawnNewTank()

@@ -19,9 +19,6 @@ public:
 
 	virtual void TakeDamage(FDamageData DamageData) override;
 
-	//UMaterial* StoredMaterial;
-	//UMaterialInstanceDynamic* DynamicMaterialInst;
-
 protected:
 	virtual void BeginPlay() override;
 
@@ -57,12 +54,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
 	AHW_MapLoader* LinkedMapLoader;
 
-	/*
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
-	class UMaterial* StartMaterial;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn params")
-	class UMaterial* DestroyMaterial;
-	*/
-
+	class UMaterial* DestroyedMaterial;
 };
