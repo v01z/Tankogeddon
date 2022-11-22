@@ -9,6 +9,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/AudioComponent.h"
 #include "Camera/CameraShakeBase.h"
+#include "PhysicsProjectile.h"
 
 // Sets default values
 ACannon::ACannon()
@@ -45,7 +46,8 @@ void ACannon::Fire()
 	if (CannonType == ECannonType::FireProjectile)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Purple, "Fire projectile");
-		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+		//AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+		AProjectile* Projectile = GetWorld()->SpawnActor<APhysicsProjectile>(PhysicsProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
 			ProjectileSpawnPoint->GetComponentRotation());
 
 		if (Projectile)

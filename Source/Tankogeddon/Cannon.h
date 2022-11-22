@@ -40,6 +40,10 @@ protected:
 
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Fire params")
 	TSubclassOf<class AProjectile> ProjectileClass;
+	//
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Fire params")
+	TSubclassOf<class APhysicsProjectile> PhysicsProjectileClass;
+	//
 
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "Fire params")
 	float FireRate = 1.0f;
