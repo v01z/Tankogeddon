@@ -23,7 +23,7 @@ void APhysicsProjectile::Start()
 	{
 		for (FVector position : CurrentTrajectory)
 		{
-			DrawDebugSphere(GetWorld(), position, 8.0f, 8, FColor::Purple, true, 1.0f, 0, 2);
+			DrawDebugSphere(GetWorld(), position, 5.0f, 8, FColor::Purple, true, 1.0f, 0, 2);
 		}
 	}
 	TrajectoryCurrentIndex = 0;
@@ -35,6 +35,7 @@ void APhysicsProjectile::Move()
 	FVector CurrentMoveVector = CurrentTrajectory[TrajectoryCurrentIndex] - GetActorLocation();
 	CurrentMoveVector.Normalize();
 	FVector newLocation = GetActorLocation() + CurrentMoveVector * MoveSpeed * MoveRate;
+	SetActorLocation(newLocation);
 	if (FVector::Distance(newLocation, CurrentTrajectory[TrajectoryCurrentIndex]) <= MoveAccurency)
 	{
 		TrajectoryCurrentIndex++;

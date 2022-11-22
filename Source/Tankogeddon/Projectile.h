@@ -16,6 +16,10 @@ public:
 
 	virtual void Start();
 
+	void Explode();
+
+	void ExplodeDamage(AActor* OtherActor);
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
@@ -33,6 +37,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
 	float PushForce = 1000.0f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Damage")
+	bool bWillExplode = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (EditCondition = "bExplode == true", EditConditionHides), Category = "Damage")
+	float ExplodingRadius = 50.f;
 
 	
 	FTimerHandle MovementTimer;

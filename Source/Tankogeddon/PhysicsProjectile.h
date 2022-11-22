@@ -32,7 +32,7 @@ protected:
 	float MoveAccurency = 10.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	float TrajectoryMaxTime = 30.0f;
+	float TrajectoryMaxTime = 50.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float TrajectoryTimeStep = 1.0f;
@@ -41,7 +41,7 @@ protected:
 	float TrajectorySpeed = 20.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	bool bShowTrajectory;
+	bool bShowTrajectory = false;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")

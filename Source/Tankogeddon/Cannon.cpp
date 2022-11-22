@@ -46,8 +46,8 @@ void ACannon::Fire()
 	if (CannonType == ECannonType::FireProjectile)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Purple, "Fire projectile");
-		//AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
-		AProjectile* Projectile = GetWorld()->SpawnActor<APhysicsProjectile>(PhysicsProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
+		//APhysicsProjectile* Projectile = GetWorld()->SpawnActor<APhysicsProjectile>(PhysicsProjectileClass, ProjectileSpawnPoint->GetComponentLocation(),
 			ProjectileSpawnPoint->GetComponentRotation());
 
 		if (Projectile)
